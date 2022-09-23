@@ -10,4 +10,6 @@ public class UrlResultDTO extends UrlDTO {
     public void setShortUrl(String shortUrl) {
         this.shortUrl = shortUrl;
     }
+
+
 }

@@ -14,7 +14,8 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+//@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
+@CrossOrigin
 public class UrlController {
     private final UrlService urlService;
 
@@ -42,11 +43,19 @@ public class UrlController {
         headers.setLocation(URI.create(url));
         headers.setCacheControl("no-cache, no-store, must-revalidate");
 
+
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
     @GetMapping("/admin")
     public List<UrlStatDTO> stat() {
         return urlService.getStatistics();
+    }
+
+
+    @GetMapping("myy/{id}")
+    public String redirectTwo(@PathVariable("id") Long id) {
+        String  url = urlService.getUrl(id);
+        return url;
     }
 }

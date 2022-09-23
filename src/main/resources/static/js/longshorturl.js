@@ -6,7 +6,7 @@ $('#longurl').on('submit', function (event) {
     data = JSON.stringify(data);
     console.log(data);
 
-    postMyData(url, data);
+   // postMyData(url, data);
     $(this).trigger('reset');
 
     $.ajax({
@@ -19,7 +19,6 @@ $('#longurl').on('submit', function (event) {
             console.log(response);
         }
     });
-
 });
 
 
@@ -29,11 +28,16 @@ $('#shorturl').on('submit', function(event){
     let myindex = $('#shorturl input[name = "shortURL"]').val();
     url = url.concat(myindex);
     console.log(url);
-    $.get(url);
 
-
+    $.ajax({
+        type: "GET",
+        url,
+        success: function (response) {
+            console.log(response);
+        }
+    });
+   // $.get(url);
 });
-
 
 /*function  postMyData(url, data) {
     $.ajax({

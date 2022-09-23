@@ -13,6 +13,7 @@ public class HappyUrlApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(HappyUrlApplication.class, args);
+
     }
 
    /* @Bean

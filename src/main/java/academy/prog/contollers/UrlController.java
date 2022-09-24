@@ -15,7 +15,7 @@ import java.util.List;
 
 @RestController
 //@RequestMapping(value = "/", produces = MediaType.APPLICATION_JSON_VALUE)
-@CrossOrigin
+@CrossOrigin(origins = "http://localhost:8080")
 public class UrlController {
     private final UrlService urlService;
 

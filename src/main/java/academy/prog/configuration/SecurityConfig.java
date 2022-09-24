@@ -8,15 +8,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
-public class SecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter implements WebMvcConfigurer {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
                 .csrf().disable()
                 .exceptionHandling()
-                .authenticationEntryPoint(entryPoint())
+                //.authenticationEntryPoint(entryPoint())
                 .and()
                 .authorizeRequests()
                 .antMatchers("/admin").hasRole("ADMIN")
@@ -39,12 +41,19 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .logoutSuccessUrl("/login?logout");
     }
 
-    @Bean
+    @Override
+    public void addCorsMappings(CorsRegistry registry) {
+        registry.addMapping("/**")
+                .allowedOrigins("http://localhost:8080/my/*")
+                .allowedMethods("*");
+    }
+
+    /*@Bean
     public AuthenticationEntryPoint entryPoint() {
         BasicAuthenticationEntryPoint point = new BasicAuthenticationEntryPoint();
         point.setRealmName("Geo");
         return point;
-    }
+    }*/
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
